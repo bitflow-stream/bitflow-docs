@@ -1,8 +1,7 @@
 site_name: Bitflow Documentation
 repo_url: https://github.com/bitflow-stream/bitflow-docs
 theme: readthedocs
-plugins: [ search ]
-nav:
+pages:
 - Home: index.md
 - General:
   - "Sources, Sinks and the Data Format": data_format.md
