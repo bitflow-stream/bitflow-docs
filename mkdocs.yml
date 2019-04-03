@@ -11,9 +11,10 @@ markdown_extensions:
     - toc:
         permalink: True
 nav:
-    - Home: index.md
-    - Data Sources, Sinks and Protocol: data_format.md
-    - Bitflow Script: script.md
+    - Home:
+        - index.md
+        - data_format.md
+        - script.md
     - Implementations:
         - go-bitflow: "https://bitflow.readthedocs.io/projects/go-bitflow/en/latest/"
         - bitflow4j (Github): "https://github.com/bitflow-stream/bitflow4j"
