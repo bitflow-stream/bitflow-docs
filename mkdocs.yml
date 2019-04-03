@@ -10,7 +10,7 @@ markdown_extensions:
     - smarty
     - toc:
         permalink: True
-nav:
+pages:
     - Home: index.md
     - Data Sources, Sinks and Protocol: data_format.md
     - Bitflow Script: script.md
