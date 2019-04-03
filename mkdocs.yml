@@ -1,5 +1,15 @@
 site_name: Bitflow
+repo_url: https://github.com/bitflow-stream/bitflow-docs
+site_author: The Bitflow Team
+site_description: Bitflow Documentation
 theme: readthedocs
+plugins:
+    - search
+markdown_extensions:
+    - sane_lists
+    - smarty
+    - toc:
+        permalink: True
 nav:
     - Home: index.md
     - Data Sources, Sinks and Protocol: data_format.md
