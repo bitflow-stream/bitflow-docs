@@ -5,10 +5,10 @@ markdown_extensions:
     permalink: true
 nav:
 - Home:
-  - The Bitflow Project: index.md
-  - Data Sources, Sinks and Format: data-format.md
+  - The Bitflow Project: https://bitflow.readthedocs.io/en/latest/
+  - Data Sources, Sinks and Format: https://bitflow.readthedocs.io/en/latest/data-format/
   - Bitflow Script: https://bitflow.readthedocs.io/projects/bitflow-antlr-grammars/en/latest/bitflow-script/
-  - Naming Conventions: naming.md
+  - Naming Conventions: https://bitflow.readthedocs.io/en/latest/naming/
 - Implementations:
   - go-bitflow: https://bitflow.readthedocs.io/projects/go-bitflow/en/latest/
   - bitflow4j (Github): https://github.com/bitflow-stream/bitflow4j
@@ -19,8 +19,8 @@ nav:
   - bitflow-process-agent (Github): https://github.com/bitflow-stream/bitflow-process-agent
 plugins:
 - search
-repo_url: https://github.com/bitflow-stream/bitflow-docs
-site_author: The Bitflow Team
-site_description: Bitflow Documentation
-site_name: Bitflow
+repo_url: https://github.com/bitflow-stream/bitflow4j
+site_author: Florian Schmidt
+site_description: Bitflow4j Documentation
+site_name: Bitflow4j
 theme: readthedocs
