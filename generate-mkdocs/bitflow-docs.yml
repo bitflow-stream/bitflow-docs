@@ -9,6 +9,7 @@ nav:
   - Data Sources, Sinks and Format: data-format.md
   - Bitflow Script: https://bitflow.readthedocs.io/projects/bitflow-antlr-grammars/en/latest/bitflow-script/
   - Naming Conventions: naming.md
+  - Development Process: development.md
 - Implementations:
   - go-bitflow: https://bitflow.readthedocs.io/projects/go-bitflow/en/latest/
   - bitflow4j: https://bitflow.readthedocs.io/projects/bitflow4j/en/latest/
