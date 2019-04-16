@@ -56,7 +56,9 @@ TODO: list/document required data formats (csv, bin) and source/sink types (file
 Many processing steps take *sample templates* as parameters. A sample template is a string with placeholders, which are replaced by tag values of a sample. A sample template is always evaluated in the context of an individual sample.
 The syntax for a placeholder is `${a}`.
 
-Examples:
+For example, if samples should be output in different files based on their `data_type` tag, the output file can be defined as `./output-${data_type}.csv`. Now a sample with the tag `data_type=raw` will be output to the file `./output-raw.csv`, while a sample with the tag `data_type=aggregated` will be output to the file `./output-aggregated.csv`.
+
+Other examples:
 - `./${data_type}/${pump}.bin`
 - `${layer}_${host}`
 
