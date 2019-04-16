@@ -26,8 +26,7 @@ Of course the implementations can have class hierarchies or helper types with di
     - Similar terms that should *NOT* be used: parser, formatter
 - **Batch processing step** (or batch step): A processing step that handles a list of samples, instead of processing samples individually.
     - Similar terms that should *NOT* be used: window
-
-**TODO**: Define sub-pipeline?
+- **Sub-Pipeline**: A pipeline inside a fork. A sub-pipeline is almost equal to a top-level pipeline, except that no separate data input can be defined. The input samples are automatically given by the fork that surrounds the sub-pipeline. Any samples that reach the end of a sub-pipeline must be forwarded to the processing step that follows the surrounding fork.
 
 ## Naming of Processing Steps
 
@@ -52,6 +51,17 @@ The above procedure implies that class names of processing step classes should f
 
 TODO: list/document required data formats (csv, bin) and source/sink types (file, tcp, listen, console)
 
+## Sample Templates
+
+Many processing steps take *sample templates* as parameters. A sample template is a string with placeholders, which are replaced by tag values of a sample. A sample template is always evaluated in the context of an individual sample.
+The syntax for a placeholder is `${a}`.
+
+For example, if samples should be output in different files based on their `data_type` tag, the output file can be defined as `./output-${data_type}.csv`. Now a sample with the tag `data_type=raw` will be output to the file `./output-raw.csv`, while a sample with the tag `data_type=aggregated` will be output to the file `./output-aggregated.csv`.
+
+Other examples:
+- `./${data_type}/${pump}.bin`
+- `${layer}_${host}`
+
 ## Core Processing Steps
 
 The following is a list of processing steps that should be supported in all language implementations of the Bitflow Script, with exactly the given names.
@@ -64,12 +74,9 @@ The parameters should also be supported, as much as possible.
 - **`filter()`**: A processing step that only forwards samples that meet certain requirements
     - **TODO**: define parameters and semantics of the filter. Additional filter processing steps, e.g. filter-expression?
 - **`fork-tag(tag=)`**: A fork processing step that forks the samples based on a tag value
-- **`fork-template(template=)`**: A fork processing step that forks the samples based on a *sample template* (see below)
-- **`output-files(file=)*`**: A processing step that outputs each sample to a file, that is defined by a *sample template* (see below)
-
-TODO: other concepts that should be introduced:
-
-- a *sample template*: string with placeholders that are replaced by tag values (e.g. `./${data_type}/${pump}.bin`)
+- **`fork-template(template=)`**: A fork processing step that forks the samples based on a *sample template*
+- **`output-files(file=)*`**: A processing step that outputs each sample to a file, that is defined by a *sample template*
+- **`set-tags(a=b, x=y, ...)`**: A processing step that takes arbitrary parameters and sets the given parameters as tags (possibly overwriting existing tags). Both the key and value parts should be evaluated as *sample templates* before setting the resulting value.
 
 ## Common Command-Line Options
 
@@ -83,5 +90,5 @@ The following command line flags should be supported by all implementations of B
 - **`-qq`**: Set log level to Severe
 - **`-capabilities`**: Output a JSON-formatted list of all supported processing steps
     - TODO: define JSON data format
-
-TODO: `-p` (load plugin), `-log` (configure logging to file/other destinations)
+- **`-p <plugin>`**: Load a Bitflow-Script plugin that contains new processing steps and/or data sources/sinks. The plugin mechanism and file type is implementation specific.
+- **`-log <file>`**: Write all logging output to the given file (or other destination, if the parameter is a URL)
