@@ -64,7 +64,13 @@ Other examples:
 
 ## Batch Processing
 
-TODO: describe batch processing semantics, supported batch modes, and parameters of the `batch()` environment in the Bitflow Script
+TODO: describe batch processing semantics, supported batch modes, and parameters of the `batch()` environment in the Bitflow Script.
+
+Required batch modes:
+- flush after input closed (entire file)
+- separation tag (with optional timeout)
+- flush after fixed number of samples
+- flush after fixed period of time
 
 ## Forking
 
