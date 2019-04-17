@@ -62,6 +62,14 @@ Other examples:
 - `./${data_type}/${pump}.bin`
 - `${layer}_${host}`
 
+## Batch Processing
+
+TODO: describe batch processing semantics, supported batch modes, and parameters of the `batch()` environment in the Bitflow Script
+
+## Forking
+
+TODO: describe fork semantics (distributors, etc)
+
 ## Core Processing Steps
 
 The following is a list of processing steps that should be supported in all language implementations of the Bitflow Script, with exactly the given names.
