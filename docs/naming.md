@@ -49,7 +49,24 @@ The above procedure implies that class names of processing step classes should f
 
 ## Core Data Sources, Sinks and Marshallers
 
-TODO: list/document required data formats (csv, bin) and source/sink types (file, tcp, listen, console)
+Bitflow support various sources and sinks. A data source is a way a bitflow program can obtain samples from. The follow ones should be support by all implementations:
+- **source-listen**: binds a tcp socket and waits for clients to connect and send data. Multiple senders are 
+accepted. Maximum number of peers might be configurable with global parameter **`--source-listen-max-peers`**
+- **source-download**: connects to a given endpoint and starts downloading data. If connection failes, the sources tries to reconnect constantly. 
+- **source-file**: reads one or more files located on the disk in seqential order.  
+- **source-console**: reads from stdio of the bitflow program.
+
+Apart from source also sink types are defined in bitflow:
+- **sink-listen**: binds a tcp socket and waits for clients to connect. After the connection is established the sink-listen begins to send data to the connected peer(s). Sink-listen should supports mutiple peers. Sink-listen might also be able to buffer samples and send them to peers connecting later in time. The number of buffered samples might be configurable using bitflow-script args of the sink step.
+- **sink-send**: nnects to a given endpoint and starts sending data. If connection failes, the sources tries to reconnect constantly. After reconnection, the stream will continue at the after the last send sample. 
+- **sink-file**: writes samples into a file. 
+- **sink-console**: writes samples to stdio.
+
+Further bitflow supports two data formats used to transport and store data.
+- **csv**: is a csv conform data format if it is written to file. Each stream contains at least ns accurate timestamp, key-value string pairs called tags and optional double parameters.
+- **bin**: binary represantation of a datastream. This improves lightness and reduces network overhead.  
+
+These formats are defined in more detail in section data formats. 
 
 ## Sample Templates
 
@@ -66,15 +83,6 @@ Other examples:
 
 TODO: describe batch processing semantics, supported batch modes, and parameters of the `batch()` environment in the Bitflow Script.
 
-Required batch modes:
-- flush after input closed (entire file)
-- separation tag (with optional timeout)
-- flush after fixed number of samples
-- flush after fixed period of time
-
-## Forking
-
-TODO: describe fork semantics (distributors, etc)
 
 ## Core Processing Steps
 
@@ -87,9 +95,9 @@ The parameters should also be supported, as much as possible.
 - **`strip-tags()`**: A processing step that removes all tags
 - **`filter()`**: A processing step that only forwards samples that meet certain requirements
     - **TODO**: define parameters and semantics of the filter. Additional filter processing steps, e.g. filter-expression?
+- **`batch`**: A batch processing step opens a new subpipeline only supporting batch-steps. Batch-pipelines forwards multiple samples at the same time to corresponding batch steps.
 - **`fork-tag(tag=)`**: A fork processing step that forks the samples based on a tag value
 - **`fork-template(template=)`**: A fork processing step that forks the samples based on a *sample template*
-- **`output-files(file=)*`**: A processing step that outputs each sample to a file, that is defined by a *sample template*
 - **`set-tags(a=b, x=y, ...)`**: A processing step that takes arbitrary parameters and sets the given parameters as tags (possibly overwriting existing tags). Both the key and value parts should be evaluated as *sample templates* before setting the resulting value.
 
 ## Common Command-Line Options
