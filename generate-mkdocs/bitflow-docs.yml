@@ -7,6 +7,7 @@ nav:
 - Home:
   - The Bitflow Project: index.md
   - Data Sources, Sinks and Format: data-format.md
+  - Core functionality: core-functionality.md
   - Bitflow Script: https://bitflow.readthedocs.io/projects/bitflow-antlr-grammars/en/latest/bitflow-script/
   - Naming Conventions: naming.md
   - Development Process: development.md
