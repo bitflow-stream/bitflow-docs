@@ -50,17 +50,17 @@ The above procedure implies that class names of processing step classes should f
 ## Core Data Sources, Sinks and Marshallers
 
 Bitflow support various sources and sinks. A data source is a way a bitflow program can obtain samples from. The follow ones should be support by all implementations:
-- **source-listen**: binds a tcp socket and waits for clients to connect and send data. Multiple senders are 
+- **listen**: binds a tcp socket and waits for clients to connect and send data. Multiple senders are 
 accepted. Maximum number of peers might be configurable with global parameter **`--source-listen-max-peers`**
-- **source-download**: connects to a given endpoint and starts downloading data. If connection failes, the sources tries to reconnect constantly. 
-- **source-file**: reads one or more files located on the disk in seqential order.  
-- **source-console**: reads from stdio of the bitflow program.
+- **download**: connects to a given endpoint and starts downloading data. If connection failes, the sources tries to reconnect constantly. 
+- **file**: reads one or more files located on the disk in seqential order.  
+- **console**: reads from stdio of the bitflow program.
 
 Apart from source also sink types are defined in bitflow:
-- **sink-listen**: binds a tcp socket and waits for clients to connect. After the connection is established the sink-listen begins to send data to the connected peer(s). Sink-listen should supports mutiple peers. Sink-listen might also be able to buffer samples and send them to peers connecting later in time. The number of buffered samples might be configurable using bitflow-script args of the sink step.
-- **sink-send**: nnects to a given endpoint and starts sending data. If connection failes, the sources tries to reconnect constantly. After reconnection, the stream will continue at the after the last send sample. 
-- **sink-file**: writes samples into a file. 
-- **sink-console**: writes samples to stdio.
+- **listen**: binds a tcp socket and waits for clients to connect. After the connection is established the sink-listen begins to send data to the connected peer(s). Sink-listen should supports mutiple peers. Sink-listen might also be able to buffer samples and send them to peers connecting later in time. The number of buffered samples might be configurable using bitflow-script args of the sink step.
+- **send**: nnects to a given endpoint and starts sending data. If connection failes, the sources tries to reconnect constantly. After reconnection, the stream will continue at the after the last send sample. 
+- **file**: writes samples into a file. 
+- **console**: writes samples to stdio.
 
 Further bitflow supports two data formats used to transport and store data.
 - **csv**: is a csv conform data format if it is written to file. Each stream contains at least ns accurate timestamp, key-value string pairs called tags and optional double parameters.
