@@ -1,10 +1,10 @@
 # Core functionality
 
-This section describes the cores features of bitflow.
+This section describes the cores functionality of bitflow.
 
 ## Batch 
 
-Batch is one of the few keywords in the bitflow script language. Batch is used as a simple processing steps inside a script and must be combined with a subpipeline like **`"input.csv" -> batch(sample-window-size=5){ avg() } -> out.csv`**
+Batch is currently the only keyword in the bitflow script language. Batch is used as a processing step inside a script and must be combined with a subpipeline like **`"input.csv" -> batch(sample-window-size=5){ avg() } -> out.csv`**
 
 (TODO) Required batch modes:
 - flush after input closed (entire file)
@@ -15,3 +15,7 @@ Batch is one of the few keywords in the bitflow script language. Batch is used a
 ## Fork
 
 TODO: describe fork semantics (distributors, etc)
+
+## Pipeline
+
+TODO
