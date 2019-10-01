@@ -1,6 +1,6 @@
 # Core functionality
 
-This section describes the cores functionality of bitflow.
+This section describes the core functionality of bitflow.
 
 ## Batch 
 
