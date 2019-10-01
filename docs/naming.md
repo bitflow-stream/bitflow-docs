@@ -49,7 +49,24 @@ The above procedure implies that class names of processing step classes should f
 
 ## Core Data Sources, Sinks and Marshallers
 
-TODO: list/document required data formats (csv, bin) and source/sink types (file, tcp, listen, console)
+Bitflow support various sources and sinks. A data source is a way a bitflow program can obtain samples from. The follow ones should be support by all implementations:
+- **listen**: binds a tcp socket and waits for clients to connect and send data. Multiple senders are 
+accepted. Maximum number of peers might be configurable with global parameter **`--source-listen-max-peers`**
+- **download**: connects to a given endpoint and starts downloading data. If connection failes, the sources tries to reconnect constantly. 
+- **file**: reads one or more files located on the disk in seqential order.  
+- **console**: reads from stdio of the bitflow program.
+
+Apart from source also sink types are defined in bitflow:
+- **listen**: binds a tcp socket and waits for clients to connect. After the connection is established the sink-listen begins to send data to the connected peer(s). Sink-listen should supports mutiple peers. Sink-listen might also be able to buffer samples and send them to peers connecting later in time. The number of buffered samples might be configurable using bitflow-script args of the sink step.
+- **send**: nnects to a given endpoint and starts sending data. If connection failes, the sources tries to reconnect constantly. After reconnection, the stream will continue at the after the last send sample. 
+- **file**: writes samples into a file. 
+- **console**: writes samples to stdio.
+
+Further bitflow supports two data formats used to transport and store data.
+- **csv**: is a csv conform data format if it is written to file. Each stream contains at least ns accurate timestamp, key-value string pairs called tags and optional double parameters.
+- **bin**: binary represantation of a datastream. This improves lightness and reduces network overhead.  
+
+These formats are defined in more detail in section data formats. 
 
 ## Sample Templates
 
@@ -60,21 +77,6 @@ For example, if samples should be output in different files based on their `data
 
 Other examples:
 - `./${data_type}/${pump}.bin`
-- `${layer}_${host}`
-
-## Batch Processing
-
-TODO: describe batch processing semantics, supported batch modes, and parameters of the `batch()` environment in the Bitflow Script.
-
-Required batch modes:
-- flush after input closed (entire file)
-- separation tag (with optional timeout)
-- flush after fixed number of samples
-- flush after fixed period of time
-
-## Forking
-
-TODO: describe fork semantics (distributors, etc)
 
 ## Core Processing Steps
 
@@ -87,9 +89,9 @@ The parameters should also be supported, as much as possible.
 - **`strip-tags()`**: A processing step that removes all tags
 - **`filter()`**: A processing step that only forwards samples that meet certain requirements
     - **TODO**: define parameters and semantics of the filter. Additional filter processing steps, e.g. filter-expression?
+- **`batch`**: A batch processing step opens a new subpipeline only supporting batch-steps. Batch-pipelines forwards multiple samples at the same time to corresponding batch steps.
 - **`fork-tag(tag=)`**: A fork processing step that forks the samples based on a tag value
 - **`fork-template(template=)`**: A fork processing step that forks the samples based on a *sample template*
-- **`output-files(file=)*`**: A processing step that outputs each sample to a file, that is defined by a *sample template*
 - **`set-tags(a=b, x=y, ...)`**: A processing step that takes arbitrary parameters and sets the given parameters as tags (possibly overwriting existing tags). Both the key and value parts should be evaluated as *sample templates* before setting the resulting value.
 
 ## Common Command-Line Options
@@ -97,12 +99,12 @@ The parameters should also be supported, as much as possible.
 The following command line flags should be supported by all implementations of Bitflow Script:
 
 - Positional arguments: any non-flag arguments should be concatenated (with an additional space character as separator) and used as the Bitflow Script to be executed.
-- **`-s`**: Alternative to providing the script as positional argument. The script is given as a parameter to this flag. Cannot be combined with positional arguments.
-- **`-f`**: Alternative to positional arguments or `-s`. Define a file, from which the Bitflow Script is read.
-- **`-v`**: Set log level to Debug (default is Info)
+- **`[-s,--script] <bitflow script>`**: Alternative to providing the script as positional argument. The script is given as a parameter to this flag. Cannot be combined with positional arguments.
+- **`[-f, --file] <bitflow script file>`**: Alternative to positional arguments or `-s`. Define a file, from which the Bitflow Script is read.
+- **`[-v, --verbose]`**: Set log level to Debug (default is Info)
 - **`-q`**: Set log level to Warning
 - **`-qq`**: Set log level to Severe
-- **`-capabilities`**: Output a JSON-formatted list of all supported processing steps
+- **`[-c,--capabilities]`**: Output a JSON-formatted list of all supported processing steps
     - TODO: define JSON data format
-- **`-p <plugin>`**: Load a Bitflow-Script plugin that contains new processing steps and/or data sources/sinks. The plugin mechanism and file type is implementation specific.
+- **`[-p, --plugin] <plugin>`**: Load a Bitflow-Script plugin that contains new processing steps and/or data sources/sinks. The plugin mechanism and file type is implementation specific.
 - **`-log <file>`**: Write all logging output to the given file (or other destination, if the parameter is a URL)

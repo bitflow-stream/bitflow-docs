@@ -6,6 +6,7 @@ markdown_extensions:
 nav:
 - Home:
   - The Bitflow Project: index.md
+  - Core Functionality: core-functionality.md
   - Data Sources, Sinks and Format: data-format.md
   - Bitflow Script: https://bitflow.readthedocs.io/projects/bitflow-antlr-grammars/en/latest/bitflow-script/
   - Naming Conventions: naming.md
