@@ -1,13 +1,15 @@
 # The Bitflow Project
 
-Bitflow is an open source project developed at the Complex and Distributed IT Systems Group at the technical university of Berlin.
-It was first mentioned to be a framework to fast and easily implement and test machine learning based anomaly detection algorithms for automated cloud monitoring.
-The core functionallity is written in Java, GO and Python.
+Bitflow is an open source project developed at the (Complex and Distributed IT Systems Group (CIT))[https://www.cit.tu-berlin.de] at the (Technical University of Berlin)[https://www.tu.berlin/].
+Bitflow is a lightweight distributed datastream processing engine that works on Kubernetes and features a domain specific language for expressing operator graphs (Bitflowscript) and a flexible dataflow graph model.
+The core functionallity is written in Go, with plugins available in Java and Python.
 Bitflow allows to read data from sources and process them in arbitrary ways.
-Compared to big data Frameworks like Apache Flink, Bitflow does not require dedicated hardware, its mentioned to run beside the actual workload.
+Compared to Big Data frameworks such as Apache Flink, Bitflow does not assume to run on dedicated hardware or resources.
+It is designed to run alongside other workload and minimizes its influence on the "main workload" through intelligent scheduling and by limiting the resources assigned to stream processing containers.
 
-Missing documentation:
+The documentation for this project is work in progress. Missing documentation:
 
+0. Usage guideline, Getting started
 1. Pipelines
 2. Naming conventions in implementations:
     1. Naming of processing steps and parameters
